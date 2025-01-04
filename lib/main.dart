@@ -82,6 +82,17 @@ class _MyHomePageState extends State<MyHomePage> {
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading: IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () {
+            // Navigate back to home page
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+              ),
+            );
+          },
+        ),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
