@@ -54,6 +54,23 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+class MembersPage extends StatelessWidget {
+  const MembersPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Members'),
+      ),
+      body: const Center(
+        child: Text('Members Page Content'),
+      ),
+    );
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -82,16 +99,33 @@ class _MyHomePageState extends State<MyHomePage> {
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: IconButton(
-          icon: const Icon(Icons.home),
-          onPressed: () {
-            // Navigate back to home page
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
-              ),
-            );
-          },
+        leadingWidth: 100, // Increase width to accommodate both buttons
+        leading: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                // Navigate back to home page
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.people),
+              onPressed: () {
+                // Navigate to members page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MembersPage(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
