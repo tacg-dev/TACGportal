@@ -3,6 +3,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart' as fbuiauth;
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:tacgportal/firebase_options.dart';
+import 'package:tacgportal/router.dart';
 import 'package:tacgportal/screens/Login.dart';
 import 'package:tacgportal/util.dart';
 import 'package:tacgportal/widgets/colorscheme.dart';
@@ -47,62 +48,14 @@ class MyApp extends StatelessWidget {
     TextTheme systemTextTheme = ThemeData.light().textTheme;
     MaterialTheme theme = MaterialTheme(systemTextTheme);
     ColorScheme colorScheme = MaterialTheme.lightScheme();
+    final router = goRouter;
 
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return MaterialApp(
-            title: "Login",
-            theme: theme.light(),
-            darkTheme: theme.dark(),
-            themeMode: ThemeMode.system,
-            routes: {
-              "/": (context) => fbuiauth.SignInScreen(
-                    actions: [
-                      fbuiauth.AuthStateChangeAction<fbuiauth.SignedIn>(
-                        (context, state) {
-                          if (state.user != null) {
-                            print(
-                                'User signed in: ${state.user!.email} ${state.user!.uid}');
-
-                            print(FirebaseAuth.instance.authStateChanges());
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Home(),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                    sideBuilder: (context, shrinkOffset) {
-                      return Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Image.asset('lib/assets/tacg-nbg.png'),
-                        ),
-                      );
-                    },
-                  ),
-            },
-          );
-        }
-
-        return MaterialApp(
-          title: "Main App",
-          theme: theme.light(),
-          darkTheme: theme.dark(),
-          themeMode: ThemeMode.system,
-          routes: {
-            "/": (context) => const Home(),
-            "/testy": (context) => const TestPage(),
-            "/color": (context) => ColorSchemeDisplay(colorScheme: colorScheme),
-          },
-        );
-      },
+    return MaterialApp.router(
+      title: "Main App",
+      theme: theme.light(),
+      darkTheme: theme.dark(),
+      themeMode: ThemeMode.system,
+      routerConfig: router,
     );
   }
 }

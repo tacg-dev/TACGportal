@@ -1,50 +1,41 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tacgportal/router.dart';
+import 'package:tacgportal/screens/Home.dart';
 
-class Login extends StatelessWidget{
+class Login extends StatelessWidget {
   const Login({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        centerTitle: true,
-      ),
-      body: Center(
-          child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black, // Border color
-            width: 2.0, // Border width
-          ),
+    return SignInScreen(
+      actions: [
+        AuthStateChangeAction<SignedIn>(
+          (context, state) {
+            if (state.user != null) {
+              print('User signed in: ${state.user!.email} ${state.user!.uid}');
+
+
+
+              print(FirebaseAuth.instance.authStateChanges());
+
+              context.goNamed(AppRoute.home.name);
+              
+            }
+          },
         ),
-        child: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
-          child: const Column(
-            
-            children: [Text('Welcome to the Login Page!'), Text("text2")
-            
-            ],
+      ],
+      sideBuilder: (context, shrinkOffset) {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image.asset('lib/assets/tacg-nbg.png'),
           ),
-        ),
-      )),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-        ],
-        currentIndex: 0, // Set the selected index
-        onTap: (index) {
-          // Handle bottom navigation tap
-        },
-      ),
+        );
+      },
     );
   }
 }
