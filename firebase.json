@@ -1,0 +1,25 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "tacg-portal",
+          "appId": "1:9882828577:android:505aa090fc360f1b9dc860",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "tacg-portal",
+          "configurations": {
+            "android": "1:9882828577:android:505aa090fc360f1b9dc860",
+            "ios": "1:9882828577:ios:6f5e74cebbd95c6d9dc860",
+            "macos": "1:9882828577:ios:6f5e74cebbd95c6d9dc860",
+            "web": "1:9882828577:web:b9759b374cae6def9dc860",
+            "windows": "1:9882828577:web:ef4ab5b296cb8f9b9dc860"
+          }
+        }
+      }
+    }
+  }
+}

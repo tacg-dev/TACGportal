@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "9882828577",
+    "project_id": "tacg-portal",
+    "storage_bucket": "tacg-portal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9882828577:android:505aa090fc360f1b9dc860",
+        "android_client_info": {
+          "package_name": "com.example.tacgportal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS26QbGXBa0lfjWogfsHhlhAFa9HujENo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
