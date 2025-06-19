@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tacgportal/router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../util.dart';
-import '../main.dart'; // Import to use the handleSignOut function
+import '../../../util.dart';
+import '../../../main.dart'; // Import to use the handleSignOut function
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({Key? key}) : super(key: key);
