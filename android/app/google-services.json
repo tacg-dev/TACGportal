@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9882828577:android:505aa090fc360f1b9dc860",
+        "mobilesdk_app_id": "1:9882828577:android:4fbba5286a3809689dc860",
         "android_client_info": {
           "package_name": "com.example.tacgportal"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "9882828577-h91224r70ucom5ii6dql6981dqrfo027.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAS26QbGXBa0lfjWogfsHhlhAFa9HujENo"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9882828577-h91224r70ucom5ii6dql6981dqrfo027.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

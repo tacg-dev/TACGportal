@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tacgportal/router.dart';
 
 // Custom Drawer Item Widget
 class DrawerItem extends StatelessWidget {
@@ -17,8 +19,8 @@ class DrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigate to the specified route
-        Navigator.pushNamed(context, route);
+        context.go(route);
+
       },
       hoverColor: Colors.blue.withOpacity(0.2), // Hover effect color
       child: ListTile(

@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tacgportal/router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../util.dart';
-import '../main.dart'; // Import to use the handleSignOut function
+import '../../../util.dart';
+import '../../../main.dart'; // Import to use the handleSignOut function
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({Key? key}) : super(key: key);
@@ -127,25 +129,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               title: const Text('Profile'),
                             ),
                             actions: [
-                              SignedOutAction((context) {
-                                // First close the profile screen
-                                Navigator.of(context).pop();
-
-                                // Sign out and wait for auth state to update
-                                FirebaseAuth.instance.signOut().then((_) {
-                                  // Wait a moment to ensure auth state changes
-                                  Future.delayed(const Duration(seconds: 1),
-                                      () {
-                                    if (context.mounted) {
-                                      // This forces a rebuild of the entire app from the root
-                                      // The StreamBuilder will detect no logged-in user and show SignInScreen
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              '/', (route) => false);
-                                    }
-                                  });
-                                });
-                              }),
+                              SignedOutAction(
+                                (context) {
+                                  // First close the profile screen
+                                  Navigator.of(context).pop();
+                                  context.goNamed(AppRoute.login.name);
+                                },
+                              ),
                             ],
                             children: [
                               const Divider(),
