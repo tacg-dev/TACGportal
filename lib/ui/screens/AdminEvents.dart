@@ -55,17 +55,12 @@ class _AdminEventsState extends State<AdminEvents> {
                         //First section with event creation and current event display
                         Container(
                           width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2),
-                          ),
+                          
                           child: Column(
                             children: [
                               // Add Event Button
                               Container(
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.black, width: 2),
-                                ),
+                                
                                 padding: const EdgeInsets.only(
                                   top: 8.0,
                                   right: 8.0,
@@ -178,10 +173,7 @@ class _AdminEventsState extends State<AdminEvents> {
                           height: 500,
                           margin: const EdgeInsets.only(
                               top: 16.0, bottom: 16.0, left: 16.0, right: 16.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                          
                           child: FutureBuilder<List<TacgEvent>>(
                             future: eventsFuture,
                             builder: (context, snapshot) {

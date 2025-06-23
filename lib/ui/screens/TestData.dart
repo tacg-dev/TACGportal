@@ -236,7 +236,7 @@ class Testdata extends StatelessWidget {
                       TextButton(
                         onPressed: () async {
                           List<ActiveMemberDbInfo> activeMembers =
-                              await fetchActiveMemberDatabase();
+                              await fetchActiveMemberDatabase(true);
                           for (var member in activeMembers) {
                             print(
                                 "Member: ${member.firstName} ${member.lastName}, Email: ${member.emailAddress}");

@@ -8,6 +8,13 @@ part of 'active_member_db_info.dart';
 
 ActiveMemberDbInfo _$ActiveMemberDbInfoFromJson(Map<String, dynamic> json) =>
     ActiveMemberDbInfo(
+      role: json['Officer Role'] as String?,
+      otherLinks:
+          (json['Any Other links Be sure to adhere to format with commas and newlines - \nlinkedin1, https://linkedin.com/jondoe\nportfolio, https://portfolio.com/jondoe\n...']
+                  as Map<String, dynamic>?)
+              ?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
       classification:
           json['Classification (based on graduation date)'] as String,
       description:
@@ -21,12 +28,14 @@ ActiveMemberDbInfo _$ActiveMemberDbInfoFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['Phone Number (xxx) xxx-xxxx'] as String,
       resumeUrl: json['Please upload a PDF copy of your resume.'] as String,
       headshotUrl: json['Professional Headshots'] as String,
-      tamuEmail: json['TAMU Email Address'] as String,
+      tamuEmail: json['TAMU Email Address '] as String,
       timestamp: json['Timestamp'] as String,
     );
 
 Map<String, dynamic> _$ActiveMemberDbInfoToJson(ActiveMemberDbInfo instance) =>
     <String, dynamic>{
+      'Any Other links Be sure to adhere to format with commas and newlines - \nlinkedin1, https://linkedin.com/jondoe\nportfolio, https://portfolio.com/jondoe\n...':
+          instance.otherLinks,
       'Classification (based on graduation date)': instance.classification,
       'Description about yourself to help you stand out': instance.description,
       'Email Address': instance.emailAddress,
@@ -38,6 +47,7 @@ Map<String, dynamic> _$ActiveMemberDbInfoToJson(ActiveMemberDbInfo instance) =>
       'Phone Number (xxx) xxx-xxxx': instance.phoneNumber,
       'Please upload a PDF copy of your resume.': instance.resumeUrl,
       'Professional Headshots': instance.headshotUrl,
-      'TAMU Email Address': instance.tamuEmail,
+      'TAMU Email Address ': instance.tamuEmail,
       'Timestamp': instance.timestamp,
+      'Officer Role': instance.role,
     };

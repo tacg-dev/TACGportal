@@ -29,7 +29,7 @@ class ActiveMemberCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                        "http://127.0.0.1:5000/api/active-member/headshot/${getGoogleDriveFileId(member.headshotUrl)}"),
+                        "https://web-backend.vercel.app/api/active-member/headshot/${getGoogleDriveFileId(member.headshotUrl)}"),
                     fit:
                         BoxFit.cover, // Maintains aspect ratio, crops if needed
                     alignment: Alignment
@@ -55,6 +55,18 @@ class ActiveMemberCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  // Officer Role if applicable
+                  if (member.role != null && member.role!.isNotEmpty)
+                    Text(
+                      member.role!,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.secondary
+                      ),
+                    ),
+
                   // Name
                   Text(
                     '${member.firstName} ${member.lastName}',
@@ -142,7 +154,7 @@ class _MemberDetailsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double dialog_width = MediaQuery.sizeOf(context).width * 1 / 2;
-    double dialog_height = MediaQuery.sizeOf(context).height * 7/8;
+    double dialog_height = MediaQuery.sizeOf(context).height * 7 / 8;
     double photo_max_width = dialog_width;
     double photo_max_height = dialog_height * 1 / 3;
     return Dialog(
@@ -178,7 +190,7 @@ class _MemberDetailsModal extends StatelessWidget {
                         width: photo_max_width,
                         height: photo_max_height,
                         child: Image.network(
-                          "http://127.0.0.1:5000/api/active-member/headshot/${getGoogleDriveFileId(member.headshotUrl)}",
+                          "https://web-backend.vercel.app/api/active-member/headshot/${getGoogleDriveFileId(member.headshotUrl)}",
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -202,87 +214,128 @@ class _MemberDetailsModal extends StatelessWidget {
                 ),
               ),
             ),
-            
             Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Name and basic info
-                      Text(
-                        '${member.firstName} ${member.lastName}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      // Classification and major
-                      Text(
-                        '${member.classification} • ${member.major}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                
-                      // Contact information section
-                      infoSection(
-                        title: 'CONTACT INFORMATION',
-                        children: [
-                          infoRow(Icons.email, 'TAMU Email', member.tamuEmail),
-                          infoRow(Icons.email_outlined, 'Personal Email',
-                              member.personalEmail),
-                          infoRow(Icons.phone, 'Phone', member.phoneNumber),
-                        ],
-                      ),
-                
-                      const SizedBox(height: 24),
-                
-                      // Education section
-                      infoSection(
-                        title: 'EDUCATION',
-                        children: [
-                          infoRow(Icons.school, 'Major', member.major),
-                          infoRow(Icons.calendar_today, 'Expected Graduation',
-                              member.expectedGraduationDate),
-                        ],
-                      ),
-                
-                      const SizedBox(height: 24),
-                
-                      // Resume section
-                      infoSection(
-                        title: 'RESUME',
-                        children: [
-                          TextButton.icon(
-                            icon: const Icon(Icons.description),
-                            label: const Text('View Resume'),
-                            onPressed: () => _launchURL(member.resumeUrl),
-                          ),
-                        ],
-                      ),
-                
-                      const SizedBox(height: 24),
-                
-                      // About section
-                      infoSection(
-                        title: 'ABOUT',
-                        children: [
+              child: SelectableRegion(
+                selectionControls: MaterialTextSelectionControls(),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        // officer role if applicable
+                        if (member.role != null && member.role!.isNotEmpty)
                           Text(
-                            member.description,
-                            style: const TextStyle(
+                            member.role!,
+                            style:  TextStyle(
                               fontSize: 16,
-                              height: 1.5,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
+                            
+
+
+                        // Name and basic info
+                        Text(
+                          '${member.firstName} ${member.lastName}',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        // Classification and major
+                        Text(
+                          '${member.classification} • ${member.major}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                
+                        // Contact information section
+                        infoSection(
+                          title: 'CONTACT INFORMATION',
+                          children: [
+                            infoRow(Icons.email, 'TAMU Email', member.tamuEmail),
+                            infoRow(Icons.email_outlined, 'Personal Email',
+                                member.personalEmail),
+                            infoRow(Icons.phone, 'Phone', member.phoneNumber),
+                          ],
+                        ),
+                
+                        const SizedBox(height: 24),
+                
+                        // Education section
+                        infoSection(
+                          title: 'EDUCATION',
+                          children: [
+                            infoRow(Icons.school, 'Major', member.major),
+                            infoRow(Icons.calendar_today, 'Expected Graduation',
+                                member.expectedGraduationDate),
+                          ],
+                        ),
+                
+                        const SizedBox(height: 24),
+                
+                        // Resume section
+                        infoSection(
+                          title: 'RESUME',
+                          children: [
+                            TextButton.icon(
+                              icon: const Icon(Icons.description),
+                              label: const Text('View Resume'),
+                              onPressed: () => _launchURL(member.resumeUrl),
+                            ),
+                          ],
+                        ),
+                
+                        const SizedBox(height: 24),
+                
+                        // About section
+                        infoSection(
+                          title: 'ABOUT',
+                          children: [
+                            Text(
+                              member.description,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                height: 1.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                
+                        // Other Links section
+                        if (member.otherLinks != null &&
+                            member.otherLinks!.isNotEmpty)
+                          infoSection(
+                            title: 'OTHER LINKS',
+                            children: member.otherLinks!.entries.map((entry) {
+                              return Row(
+                                children: [
+                                  TextButton.icon(
+                                    icon: const Icon(Icons.add_link),
+                                    label: Text(entry.key),
+                                    onPressed: () => _launchURL(entry.value),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  SelectableText(
+                                    entry.value,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),
