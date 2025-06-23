@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
     // 
     TextTheme systemTextTheme = ThemeData.light().textTheme;
     MaterialTheme theme = MaterialTheme(systemTextTheme);
-    ColorScheme colorScheme = MaterialTheme.lightScheme();
+    // ColorScheme colorScheme = MaterialTheme.lightScheme();
     final router = goRouter;
 
     return MultiProvider(

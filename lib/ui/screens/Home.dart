@@ -1,15 +1,9 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:tacgportal/data/models/active_member_db_info.dart';
 import 'package:tacgportal/data/repositories/tacg_user_repository.dart';
-import 'package:tacgportal/data/services/api/active_member_db_service.dart';
-import 'package:tacgportal/router.dart';
 import 'package:tacgportal/ui/widgets/basic_layout/mydrawer.dart';
 import '../widgets/basic_layout/Header.dart';
 import '../widgets/calendar.dart';
-import '../widgets/calendar_event.dart';
-import '../widgets/colorscheme.dart';
+
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -26,7 +20,7 @@ class Home extends StatelessWidget {
       print("Failed to fetch users: $error");
     });
 
-    print(userRepository.getUsers());
+    
 
     
 

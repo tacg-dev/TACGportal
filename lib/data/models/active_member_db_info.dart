@@ -4,6 +4,9 @@ part 'active_member_db_info.g.dart';
 
 @JsonSerializable()
 class ActiveMemberDbInfo {
+  @JsonKey(name: "Any Other links Be sure to adhere to format with commas and newlines - \nlinkedin1, https://linkedin.com/jondoe\nportfolio, https://portfolio.com/jondoe\n...")
+  final Map<String, String>? otherLinks;
+
   @JsonKey(name: 'Classification (based on graduation date)')
   final String classification;
 
@@ -37,13 +40,18 @@ class ActiveMemberDbInfo {
   @JsonKey(name: 'Professional Headshots')
   final String headshotUrl;
 
-  @JsonKey(name: 'TAMU Email Address')
+  @JsonKey(name: 'TAMU Email Address ')
   final String tamuEmail;
 
   @JsonKey(name: 'Timestamp')
   final String timestamp;
 
+  @JsonKey(name: 'Officer Role')
+  final String? role; // Optional field for role, if needed
+
   ActiveMemberDbInfo({
+    this.role,
+    this.otherLinks,
     required this.classification,
     required this.description,
     required this.emailAddress,
