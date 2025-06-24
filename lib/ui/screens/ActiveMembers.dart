@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:googleapis/chat/v1.dart';
 import 'package:tacgportal/data/models/active_member_db_info.dart';
 import 'package:tacgportal/data/services/api/active_member_db_service.dart';
 import 'package:tacgportal/ui/widgets/active_member_card.dart';

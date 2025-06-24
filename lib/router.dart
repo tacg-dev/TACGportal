@@ -32,11 +32,20 @@ enum AppRoute {
 ColorScheme colorScheme = MaterialTheme.lightScheme();
 GoRouter goRouter = GoRouter(
   redirect: (context, state) async {
+    Set<String> adminRoutes = {
+      "/testy",
+      "/adminevents",
+      "/adminattendance",
+      "/testdata",
+    };
     final bool isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    final bool isGoingToAdmin = adminRoutes.contains(state.uri.path);
+    
+
     final bool isGoingToLogin = state.uri.path == '/login';
     final bool isGoingToRegister = state.uri.path == '/register';
     final bool isGoingToNotApproved = state.uri.path == '/notapproved';
-
+    
     if (isGoingToRegister || isGoingToLogin) {
       if (isLoggedIn) {
         await FirebaseAuth.instance.signOut();
@@ -56,7 +65,11 @@ GoRouter goRouter = GoRouter(
               .collection('users')
               .doc(uid)
               .get();
-          final bool isApproved = userDoc.data()?['approved'] ?? false;
+          bool isApproved = userDoc.data()?['approved'] ?? false;
+          
+          if (isGoingToAdmin && userDoc.data()?['role'] != 'admin') {
+            isApproved = false; 
+          }
 
           if (!isApproved) {
             return '/notapproved';
@@ -69,6 +82,7 @@ GoRouter goRouter = GoRouter(
 
       return null;
     }
+    return null;
   },
   routes: <RouteBase>[
     GoRoute(

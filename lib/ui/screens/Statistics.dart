@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tacgportal/data/models/attendance_record.dart';
 import 'package:tacgportal/data/models/tacg_event.dart';
@@ -38,8 +39,28 @@ class Statistics extends StatefulWidget {
 }
 
 class _StatisticsState extends State<Statistics> {
-  StatisticsViews selectedView = StatisticsViews.aggregate;
+  StatisticsViews selectedView = StatisticsViews.individual;
   final TextEditingController viewController = TextEditingController();
+  String? userRole = 'member'; // Default to member
+  bool isLoading = true;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    isLoading = true;
+    DocumentSnapshot userData = await _getUserData();
+    if (userData.exists) {
+      setState(() {
+        userRole = (userData.data() as Map<String, dynamic>?)?['role'] as String? ?? 'member';
+      });
+    }
+    isLoading = false;
+  }
 
   Widget _buildSelectedView() {
     switch (selectedView) {
@@ -51,6 +72,9 @@ class _StatisticsState extends State<Statistics> {
   }
 
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
       body: Row(
         children: [
@@ -97,7 +121,11 @@ class _StatisticsState extends State<Statistics> {
                                     label: const Text("Select View"),
                                     controller: viewController,
                                     initialSelection: selectedView,
-                                    dropdownMenuEntries: StatisticsViews.entries,
+                                    dropdownMenuEntries: userRole == 'admin'
+                                        ? StatisticsViews.entries
+                                        : StatisticsViews.entries
+                                            .where((e) => e.value != StatisticsViews.aggregate)
+                                            .toList(),
                                     onSelected: (StatisticsViews? value) {
                                       setState(() {
                                         if (value != null) {
@@ -126,3 +154,13 @@ class _StatisticsState extends State<Statistics> {
     );
   }
 }
+Future<DocumentSnapshot> _getUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+    }
+    throw Exception('No user logged in');
+  }
