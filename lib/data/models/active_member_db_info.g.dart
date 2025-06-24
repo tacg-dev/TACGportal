@@ -18,7 +18,7 @@ ActiveMemberDbInfo _$ActiveMemberDbInfoFromJson(Map<String, dynamic> json) =>
       classification:
           json['Classification (based on graduation date)'] as String,
       description:
-          json['Description about yourself to help you stand out'] as String,
+          json['Description about yourself to help you stand out'] as String?,
       emailAddress: json['Email Address'] as String,
       expectedGraduationDate: json['Expected Graduation Date'] as String,
       firstName: json['First Name'] as String,

@@ -300,7 +300,7 @@ class _MemberDetailsModal extends StatelessWidget {
                           title: 'ABOUT',
                           children: [
                             Text(
-                              member.description,
+                              member.description ?? '',
                               style: const TextStyle(
                                 fontSize: 16,
                                 height: 1.5,
@@ -345,149 +345,8 @@ class _MemberDetailsModal extends StatelessWidget {
       ),
     );
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.85,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Modal Header with close button and image
-          Stack(
-            children: [
-              // Member Headshot
-              AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          "http://127.0.0.1:5000/api/active-member/headshot/${getGoogleDriveFileId(member.headshotUrl)}"),
-                      fit: BoxFit
-                          .cover, // Maintains aspect ratio, crops if needed
-                      alignment: Alignment
-                          .topCenter, // Shows top part (good for headshots)
-                    ),
-                  ),
-                  // Loading and error handling
-                  child: getGoogleDriveFileId(member.headshotUrl) == null
-                      ? Container(
-                          color: Colors.grey[300],
-                          child: Icon(
-                            Icons.person,
-                            size: 64,
-                            color: Colors.grey[600],
-                          ),
-                        )
-                      : null,
-                ),
-              ),
-              // Close Button
-              Positioned(
-                top: 16,
-                right: 16,
-                child: CircleAvatar(
-                  backgroundColor: Colors.black.withOpacity(0.5),
-                  radius: 20,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          // Member Details
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Name and basic info
-                  Text(
-                    '${member.firstName} ${member.lastName}',
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  // Classification and major
-                  Text(
-                    '${member.classification} • ${member.major}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  // Contact information section
-                  infoSection(
-                    title: 'CONTACT INFORMATION',
-                    children: [
-                      infoRow(Icons.email, 'TAMU Email', member.tamuEmail),
-                      infoRow(Icons.email_outlined, 'Personal Email',
-                          member.personalEmail),
-                      infoRow(Icons.phone, 'Phone', member.phoneNumber),
-                    ],
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Education section
-                  infoSection(
-                    title: 'EDUCATION',
-                    children: [
-                      infoRow(Icons.school, 'Major', member.major),
-                      infoRow(Icons.calendar_today, 'Expected Graduation',
-                          member.expectedGraduationDate),
-                    ],
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Resume section
-                  infoSection(
-                    title: 'RESUME',
-                    children: [
-                      TextButton.icon(
-                        icon: const Icon(Icons.description),
-                        label: const Text('View Resume'),
-                        onPressed: () => _launchURL(member.resumeUrl),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // About section
-                  infoSection(
-                    title: 'ABOUT',
-                    children: [
-                      Text(
-                        member.description,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    
+      
   }
 
   Widget infoSection({required String title, required List<Widget> children}) {

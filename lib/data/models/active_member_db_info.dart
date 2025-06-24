@@ -11,7 +11,7 @@ class ActiveMemberDbInfo {
   final String classification;
 
   @JsonKey(name: 'Description about yourself to help you stand out')
-  final String description;
+  final String? description;
 
   @JsonKey(name: 'Email Address')
   final String emailAddress;
@@ -53,7 +53,7 @@ class ActiveMemberDbInfo {
     this.role,
     this.otherLinks,
     required this.classification,
-    required this.description,
+    this.description,
     required this.emailAddress,
     required this.expectedGraduationDate,
     required this.firstName,
