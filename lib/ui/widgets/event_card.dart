@@ -197,7 +197,7 @@ class _EventDetailsModal extends StatelessWidget {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage("web/assets/lib/assets/tacg.png"),
+                    image: NetworkImage("assets/lib/assets/tacg.png"),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
