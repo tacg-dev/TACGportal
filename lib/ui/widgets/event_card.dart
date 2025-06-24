@@ -30,7 +30,7 @@ class EventCard extends StatelessWidget {
               height: 140,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('lib/assets/tacg.png'),
+                  image: NetworkImage('/assets/lib/assets/tacg.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -197,7 +197,7 @@ class _EventDetailsModal extends StatelessWidget {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage("assets/lib/assets/tacg.png"),
+                    image: NetworkImage("/assets/lib/assets/tacg.png"),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
