@@ -38,6 +38,18 @@ GoRouter goRouter = GoRouter(
       "/adminattendance",
       "/testdata",
     };
+
+    Set<String> publicRoutes = {
+      "/login",
+      "/register",
+      "/notapproved",
+      "/activemembers",
+    };
+
+    if (publicRoutes.contains(state.uri.path)) {
+      return null; // No redirection needed for public routes
+    }
+
     final bool isLoggedIn = FirebaseAuth.instance.currentUser != null;
     final bool isGoingToAdmin = adminRoutes.contains(state.uri.path);
     
